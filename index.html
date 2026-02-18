@@ -9,28 +9,52 @@
 </head>
 <body>
     <div class="header-container">
-        <div>Library</div>
-        <button>Add Book</button>
+        <div><h1>Library</h1></div>
+        <div class="form">
+            <form action="" method="">
+                <div class="form-row">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" name="title" placeholder="Frankenstein" required>
+                </div>
+                <div class="form-row">
+                    <label for="author">Author</label>
+                    <input type="text" id="author" name="author" placeholder="Mary Shelley">
+                </div>
+                <div class="form-row">
+                    <label for="pages">Pages</label>
+                    <input type="number" id="pages" name="pages" min="1" placeholder="280">
+                </div>
+                <div class="form-row">
+                    <select id="read" name="read">
+                        <option value="read" selected="selected">Read</option>
+                        <option value="read">Not read</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <button>Add book</button>
+                </div>
+            </form>
+        </div>
     </div>
     <div class="main-body-container">
         <div class="book-container">
-            <div class="book-title">The Shining</div>
+            <div class="book-title"><h1>The Shining</h1></div>
             <div>Stephen King</div>
             <div>447 pages</div>
             <div>Read</div>
             <div class="book-container-footer">
                 <button>Delete</button>
-                <button>Un/Read</button>
+                <button>Mark as unread</button>
             </div>
         </div>
         <div class="book-container">
-            <div class="book-title">The Great Gatsby</div>
+            <div class="book-title"><h1>The Great Gatsby</h1></div>
             <div>F. Scott Fitzgerald</div>
             <div>177 pages</div>
             <div>Not Read</div>
             <div class="book-container-footer">
                 <button>Delete</button>
-                <button>Un/Read</button>
+                <button>Mark as read</button>
             </div>
         </div>
     </div>
