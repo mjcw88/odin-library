@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Library</title>
+    <title>Project: Library | The Odin Project</title>
     <link rel="stylesheet" href="styles.css">
     <script src="script.js"></script>
 </head>
@@ -13,53 +13,99 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>book-open-variant</title><path d="M12 21.5C10.65 20.65 8.2 20 6.5 20C4.85 20 3.15 20.3 1.75 21.05C1.65 21.1 1.6 21.1 1.5 21.1C1.25 21.1 1 20.85 1 20.6V6C1.6 5.55 2.25 5.25 3 5C4.11 4.65 5.33 4.5 6.5 4.5C8.45 4.5 10.55 4.9 12 6C13.45 4.9 15.55 4.5 17.5 4.5C18.67 4.5 19.89 4.65 21 5C21.75 5.25 22.4 5.55 23 6V20.6C23 20.85 22.75 21.1 22.5 21.1C22.4 21.1 22.35 21.1 22.25 21.05C20.85 20.3 19.15 20 17.5 20C15.8 20 13.35 20.65 12 21.5M12 8V19.5C13.35 18.65 15.8 18 17.5 18C18.7 18 19.9 18.15 21 18.5V7C19.9 6.65 18.7 6.5 17.5 6.5C15.8 6.5 13.35 7.15 12 8M13 11.5C14.11 10.82 15.6 10.5 17.5 10.5C18.41 10.5 19.26 10.59 20 10.78V9.23C19.13 9.08 18.29 9 17.5 9C15.73 9 14.23 9.28 13 9.84V11.5M17.5 11.67C15.79 11.67 14.29 11.93 13 12.46V14.15C14.11 13.5 15.6 13.16 17.5 13.16C18.54 13.16 19.38 13.24 20 13.4V11.9C19.13 11.74 18.29 11.67 17.5 11.67M20 14.57C19.13 14.41 18.29 14.33 17.5 14.33C15.67 14.33 14.17 14.6 13 15.13V16.82C14.11 16.16 15.6 15.83 17.5 15.83C18.54 15.83 19.38 15.91 20 16.07V14.57Z" /></svg>
             <h1>Library</h1>
         </div>
-        <div class="form">
-            <form action="" method="">
-                <div class="form-row">
-                    <label for="title">Title</label>
-                    <input type="text" id="title" name="title" placeholder="Frankenstein" required>
-                </div>
-                <div class="form-row">
-                    <label for="author">Author</label>
-                    <input type="text" id="author" name="author" placeholder="Mary Shelley">
-                </div>
-                <div class="form-row">
-                    <label for="pages">Pages</label>
-                    <input type="number" id="pages" name="pages" min="1" placeholder="280">
-                </div>
-                <div class="form-row read">
-                    <div>
-                        <label for="read">Read</label>
-                        <input type="checkbox" id="read" name="read" checked="checked">
+        <div class="add-book-container">
+            <dialog id="add-book-form">
+                <form>
+                    <div class="form-row">
+                        <label for="title">Title</label>
+                        <input type="text" id="title" name="title" maxlength="128" placeholder="Frankenstein" required>
                     </div>
-                    <button id="add-book">Add Book</button>
-                </div>
-            </form>
+                    <div class="form-row">
+                        <label for="author">Author</label>
+                        <input type="text" id="author" name="author" maxlength="64" placeholder="Mary Shelley">
+                    </div>
+                    <div class="form-row">
+                        <label for="pages">Pages</label>
+                        <input type="number" id="pages" name="pages" min="1" max="999999" placeholder="280">
+                    </div>
+                    <div class="form-row read">
+                        <div>
+                            <label for="read">Read</label>
+                            <input type="checkbox" id="read" name="read">
+                        </div>
+                    </div>
+                    <div class="form-btns">
+                        <button value="cancel" formmethod="dialog" formnovalidate>Cancel</button>
+                        <button id="add-book-btn" value="default">Add Book</button>
+                    </div>
+                </form>
+            </dialog>
+            <button id="new-book-btn">New Book</button>
         </div>
     </div>
     <div class="main-body-container">
         <div class="book-container">
             <div class="book-info-container">
-                <div class="book-title"><h1>The Shining</h1></div>
-                <div>Stephen King</div>
-                <div>447 pages</div>
-                <div>Read</div>
+                <div class="book-title">
+                    <h1>The Shining</h1>
+                </div>
+                <div class="book-info">
+                    <div>Stephen King</div>
+                    <div>447 pages</div>
+                    <div>Read</div>
+                </div>
             </div>
             <div class="book-container-footer">
-                <button>Delete</button>
                 <button>Mark as Unread</button>
+                <button>Delete</button>
             </div>
         </div>
         <div class="book-container">
             <div class="book-info-container">
-                <div class="book-title"><h1>The Great Gatsby</h1></div>
-                <div>F. Scott Fitzgerald</div>
-                <div>177 pages</div>
-                <div>Not Read</div>
+                <div class="book-title">
+                    <h1>The Hitchhiker's Guide to the Galaxy</h1>
+                </div>
+                <div class="book-info">
+                    <div>Douglas Adams</div>
+                    <div>208 pages</div>
+                    <div>Not Read</div>
+                </div>
             </div>
             <div class="book-container-footer">
-                <button>Delete</button>
                 <button>Mark as Read</button>
+                <button>Delete</button>
+            </div>
+        </div>
+        <div class="book-container">
+            <div class="book-info-container">
+                <div class="book-title">
+                    <h1>Jane Eyre</h1>
+                </div>
+                <div class="book-info">
+                    <div>Charlotte Brontë</div>
+                    <div>448 pages</div>
+                    <div>Read</div>
+                </div>
+            </div>
+            <div class="book-container-footer">
+                <button>Mark as Unread</button>
+                <button>Delete</button>
+            </div>
+        </div>
+        <div class="book-container">
+            <div class="book-info-container">
+                <div class="book-title">
+                    <h1>Dune</h1>
+                </div>
+                <div class="book-info">
+                    <div>Frank Herbert</div>
+                    <div>896 pages</div>
+                    <div>Read</div>
+                </div>
+            </div>
+            <div class="book-container-footer">
+                <button>Mark as Unread</button>
+                <button>Delete</button>
             </div>
         </div>
     </div>

@@ -26,11 +26,11 @@
 }
 
 body {
-    min-height: 100vh;
+    height: 100vh;
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch; 
     font-size: 1rem;
     line-height: 1.5;
     background-color: #FFFFFF;
@@ -38,6 +38,7 @@ body {
 
 .header-container {
     display: flex;
+    flex: 0 0 auto;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -71,11 +72,34 @@ body {
     height: var(--size);
 }
 
+.add-book-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+#add-book-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    padding: 20px;
+    font-size: 1.5rem;
+    border-radius: 0.5rem;
+    border: calc(var(--borderThickness) * 3) solid var(--buttonBg);
+}
+
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.66);
+    backdrop-filter: blur(2px);
+}
+
 .form {
     font-family: "Signika", sans-serif;
     color: black;
     font-weight: bold;
-    font-size: 1.25rem;
     width: 100%;
 }
 
@@ -85,8 +109,8 @@ body {
     flex-direction: column;
     flex-wrap: wrap;
     max-width: calc(100vw - var(--padding) * 2);
-    margin-bottom: 1rem;
-    gap: 0.25rem;
+    margin-bottom: 1.5rem;
+    gap: 0.5rem;
 }
 
 .read {
@@ -105,12 +129,19 @@ body {
     gap: 0.5rem;
 }
 
+.form-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
 .form-row input[type='text'],
 .form-row input[type=number] {
     font-family: "Lato", sans-serif;
     width: 100%;
-    min-height: 2rem;
-    padding: 8px 0.75rem;
+    font-size: 1.25rem;
+    min-height: 3rem;
+    padding: 8px 1.25rem;
     border: var(--borderThickness) solid var(--formBorder);
     border-radius: var(--borderRadius);
 }
@@ -170,8 +201,9 @@ button {
     outline: none;
     border-radius: var(--borderRadius);
     border: var(--borderThickness) solid var(--buttonBg);
-    word-break: break-word;
+    word-break: normal;
     padding: 8px 0.75rem;
+    word-break: break-all;
 }
 
 button:hover,
@@ -185,11 +217,15 @@ button:active {
 }
 
 .main-body-container {
-    display: grid;
+    display: flex;
+    flex: 1 1 auto;
+    min-height: 0; 
+    flex-direction: column;
     width: 100%;
     gap: 1rem;
     padding: var(--padding);
     box-shadow: inset 0px 8px 8px 0px rgba(0, 0, 0, 0.25);
+    overflow-y: scroll;
 }
 
 .book-container {
@@ -202,6 +238,7 @@ button:active {
     box-shadow: 2px 4px 4px 0px rgba(0, 0, 0, 0.20);
     padding: 10px;
     width: auto;
+    word-break: break-word;
 }
 
 .book-info-container {
@@ -215,61 +252,62 @@ button:active {
 
 .book-container-footer {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
-    justify-content: center;
     gap: 0.5rem;
 }
 
-
 @media only screen and (min-width: 768px) {
+    .header-container {
+        flex-direction: row;
+        gap: 4rem;
+    }
+
+    .header {
+        flex: 0 1 auto;
+    }
+
+    .add-book-container {
+        width: fit-content;
+    }
+
     .main-body-container {
+        display: grid;
         justify-content: center;
         grid-template-columns: repeat(auto-fit, min(22rem, 100%));
+        align-content: start;
     }
-    
+
     .book-container {
-        height: fit-content;
-
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
-    form {
-        display: flex;
-        justify-content: center;
-    }
-
-    .form {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-    }
-
-    form {
-        display: flex;
-        flex-wrap: wrap;
+    .book-container-footer {
         flex-direction: row;
-        align-items: center;
-        word-break: normal;
-        gap: 1rem;
+    }
+
+    #new-book-btn {
+        width: 10rem;
+    }
+
+    #add-book-form {
+        max-width: 768px;
     }
 
     .form-row {
-        display: flex;
-        align-items: center;
-        justify-content: center;
         flex-direction: row;
+        align-items: center;
         flex-wrap: nowrap;
-        width: fit-content;
-        margin-bottom: 0;
-        gap: 1rem;
     }
 
-    .read {
-        gap: 1rem;
+    label {
+        min-width: 5rem; 
     }
 
-    button {
-        width: 10rem;
+    .form-btns {
+        display: flex;
+        flex-direction: row;
     }
 }

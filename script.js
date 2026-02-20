@@ -1,14 +1,33 @@
-document.addEventListener("DOMContentLoaded", function() { 
-    const addBookBtn = document.getElementById("add-book");
-    const title = document.getElementById("title");
-    const author = document.getElementById("author");
-    const pages = document.getElementById("pages");
-    const read = document.getElementById("read");
+document.addEventListener("DOMContentLoaded", function() {
+    const newBookBtn = document.getElementById("new-book-btn");
+    const addBook = document.getElementById("add-book-form");
+    const addBookBtn = addBook.querySelector("#add-book-btn");
+    const form = addBook.querySelector("form"); 
 
-    addBookBtn.addEventListener("click", () => {
-        console.log(title.textContent);
-        console.log(author);
-        console.log(pages);
-        console.log(read);
-    })
+    newBookBtn.addEventListener("click", () => {
+        addBook.showModal();
+    });
+
+    addBook.addEventListener("close", (e) => {
+        e.preventDefault();
+        form.reset(); 
+        addBook.close();
+    });
+
+    addBookBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+        
+        const title = document.getElementById("title").value;
+        const author = document.getElementById("author").value;
+        const pages = document.getElementById("pages").value;
+        const read = document.getElementById("read").checked;
+    
+        form.reset();
+        addBook.close();
+    });
 });
