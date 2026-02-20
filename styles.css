@@ -38,6 +38,7 @@ body {
 
 .header-container {
     display: flex;
+    position: relative;
     flex: 0 0 auto;
     flex-direction: column;
     justify-content: center;
@@ -50,6 +51,9 @@ body {
     background-color: var(--headerBg);
     color: var(--black);
     word-break: break-word;
+    box-shadow: 0px 0px 8px 8px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+
 }
 
 .header {
@@ -88,6 +92,8 @@ body {
     padding: 20px;
     font-size: 1.5rem;
     border-radius: 0.5rem;
+    color: var(--black);
+    background-color: var(--headerBg);
     border: calc(var(--borderThickness) * 3) solid var(--buttonBg);
 }
 
@@ -224,7 +230,6 @@ button:active {
     width: 100%;
     gap: 1rem;
     padding: var(--padding);
-    box-shadow: inset 0px 8px 8px 0px rgba(0, 0, 0, 0.25);
     overflow-y: scroll;
 }
 
