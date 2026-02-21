@@ -10,6 +10,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Book constructor
     function Book(id, title, author, pages, read) {
+        if (!new.target) {
+            throw Error("You must use the 'new' operator to call the constructor");
+        }
         this.id = id;
         this.title = title;
         this.author = author;
@@ -67,8 +70,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Functions
     function addBookToLibrary(title, author, pages, read) {
-        const id = crypto.randomUUID()
-        const book = new Book(id, title, author, pages, read);
+        const book = new Book(self.crypto.randomUUID(), title, author, pages, read);
         myLibrary.push(book);
 
         updateWebPage();
