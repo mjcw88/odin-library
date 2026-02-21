@@ -17,6 +17,7 @@
     --borderRadius: 4rem;
     --buttonBg: #1E1915;
     --padding: 20px;
+    --width: 768px;
 }
 
 * {
@@ -89,7 +90,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
-    padding: 20px;
+    padding: var(--padding);
     font-size: 1.5rem;
     border-radius: 0.5rem;
     color: var(--black);
@@ -241,7 +242,7 @@ button:active {
     border-radius: 0.5rem;
     border: 0.0625rem solid var(--greyborder);
     box-shadow: 2px 4px 4px 0px rgba(0, 0, 0, 0.20);
-    padding: 10px;
+    padding: calc(var(--padding) / 2);
     width: auto;
     word-break: break-word;
 }
@@ -298,7 +299,7 @@ button:active {
     }
 
     #add-book-form {
-        max-width: 768px;
+        max-width: calc(var(--width) - var(--padding) * 2);
     }
 
     .form-row {
