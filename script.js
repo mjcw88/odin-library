@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (this.read) {
             this.read = false;
             btn.textContent = "Mark as Read";
-            read.textContent = "Unread";
+            read.textContent = "Not Read";
         } else {
             this.read = true;
             btn.textContent = "Mark as Unread";
