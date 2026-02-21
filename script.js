@@ -2,6 +2,11 @@ document.addEventListener("DOMContentLoaded", function() {
     // Constants
     const myLibrary = [];
 
+    const READ = "Read";
+    const NOT_READ = "Not Read";
+    const MARK_READ = "Mark as Read";
+    const MARK_UNREAD = "Mark as Unread";
+
     const newBookBtn = document.getElementById("new-book-btn");
     const addBook = document.getElementById("add-book-form");
     const addBookBtn = addBook.querySelector("#add-book-btn");
@@ -23,12 +28,12 @@ document.addEventListener("DOMContentLoaded", function() {
     Book.prototype.toggleReadStatus = function(btn, read) {
         if (this.read) {
             this.read = false;
-            btn.textContent = "Mark as Read";
-            read.textContent = "Not Read";
+            btn.textContent = MARK_READ;
+            read.textContent = NOT_READ;
         } else {
             this.read = true;
-            btn.textContent = "Mark as Unread";
-            read.textContent = "Read";
+            btn.textContent = MARK_UNREAD;
+            read.textContent = READ;
         }
     };
 
@@ -101,9 +106,11 @@ document.addEventListener("DOMContentLoaded", function() {
             bookInfo.className = "book-info";
             bookInfoContainer.appendChild(bookInfo);
 
-            const author = document.createElement("div");
-            book.author ? author.textContent = book.author : author.textContent = "Unknown Author";
-            bookInfo.appendChild(author);
+            if (book.author) {
+                const author = document.createElement("div");
+                author.textContent = book.author;
+                bookInfo.appendChild(author);
+            }
 
             if (!isNaN(book.pages)) {
                 const pages = document.createElement("div");
@@ -112,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             
             const read = document.createElement("div");
-            book.read ? read.textContent = "Read" : read.textContent = "Not Read";
+            book.read ? read.textContent = READ : read.textContent = NOT_READ;
             bookInfo.appendChild(read);
 
             const bookContainerFooter = document.createElement("div");
@@ -120,13 +127,14 @@ document.addEventListener("DOMContentLoaded", function() {
             bookContainer.appendChild(bookContainerFooter);
 
             const readBtn = document.createElement("button");
-            book.read ? readBtn.textContent = "Mark as Unread" : readBtn.textContent = "Make as Read";
+            book.read ? readBtn.textContent = MARK_UNREAD : readBtn.textContent = MARK_READ;
             readBtn.addEventListener("click", () => {
                 book.toggleReadStatus(readBtn, read);
             });
             bookContainerFooter.appendChild(readBtn);
 
             const deleteBtn = document.createElement("button");
+            deleteBtn.className = "delete-btn";
             deleteBtn.textContent = "Delete";
             deleteBtn.addEventListener("click", () => {
                 deleteBook(book);
