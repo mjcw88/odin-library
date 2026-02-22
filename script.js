@@ -81,50 +81,51 @@ document.addEventListener("DOMContentLoaded", function() {
         updateWebPage();
     }
 
-function createElement(tag, { className, textContent, dataset } = {}) {
-    const el = document.createElement(tag);
-    if (className) el.className = className;
-    if (textContent) el.textContent = textContent;
-    if (dataset) Object.assign(el.dataset, dataset);
-    return el;
-};
+    function createElement(tag, { className, textContent, dataset } = {}) {
+        const element = document.createElement(tag);
+        if (className) element.className = className;
+        if (textContent) element.textContent = textContent;
+        if (dataset) Object.assign(element.dataset, dataset);
+        return element;
+    };
 
-function updateWebPage() {
-    mainBody.innerHTML = "";
-    myLibrary.forEach(book => {
-        const bookContainer = createElement("div", { className: "book-container", dataset: { id: book.id } });
-        const bookInfoContainer = createElement("div", { className: "book-info-container" });
-        const bookTitle = createElement("div", { className: "book-title" });
-        const title = createElement("h1", { textContent: book.title });
-        const bookInfo = createElement("div", { className: "book-info" });
-        const read = createElement("div", { textContent: book.read ? READ : NOT_READ });
-        const bookContainerFooter = createElement("div", { className: "book-container-footer" });
-        const readBtn = createElement("button", { textContent: book.read ? MARK_UNREAD : MARK_READ });
-        const deleteBtn = createElement("button", { className: "delete-btn", textContent: "Delete" });
+    function updateWebPage() {
+        mainBody.innerHTML = "";
 
-        if (book.author) bookInfo.appendChild(createElement("div", { textContent: book.author }));
+        myLibrary.forEach(book => {
+            const bookContainer = createElement("div", { className: "book-container", dataset: { id: book.id } });
+            const bookInfoContainer = createElement("div", { className: "book-info-container" });
+            const bookTitle = createElement("div", { className: "book-title" });
+            const title = createElement("h1", { textContent: book.title });
+            const bookInfo = createElement("div", { className: "book-info" });
+            const read = createElement("div", { textContent: book.read ? READ : NOT_READ });
+            const bookContainerFooter = createElement("div", { className: "book-container-footer" });
+            const readBtn = createElement("button", { textContent: book.read ? MARK_UNREAD : MARK_READ });
+            const deleteBtn = createElement("button", { className: "delete-btn", textContent: "Delete" });
 
-        if (!isNaN(book.pages)) {
-            const pages = `${book.pages.toLocaleString()} ${book.pages === 1 ? "Page" : "Pages"}`;
-            bookInfo.appendChild(createElement("div", { textContent: pages }));
-        }
+            if (book.author) bookInfo.appendChild(createElement("div", { textContent: book.author }));
 
-        readBtn.addEventListener("click", () => 
-            book.toggleReadStatus(readBtn, read)
-        );
+            if (!isNaN(book.pages)) {
+                const pages = `${book.pages.toLocaleString()} ${book.pages === 1 ? "Page" : "Pages"}`;
+                bookInfo.appendChild(createElement("div", { textContent: pages }));
+            }
 
-        deleteBtn.addEventListener("click", () => 
-            deleteBook(book)
-        );
+            readBtn.addEventListener("click", () => 
+                book.toggleReadStatus(readBtn, read)
+            );
 
-        bookTitle.appendChild(title);
-        bookInfoContainer.append(bookTitle, bookInfo);
-        bookInfo.appendChild(read);
-        bookContainerFooter.append(readBtn, deleteBtn);
-        bookContainer.append(bookInfoContainer, bookContainerFooter);
-        mainBody.appendChild(bookContainer);
-    });
-};
+            deleteBtn.addEventListener("click", () => 
+                deleteBook(book)
+            );
+
+            bookTitle.appendChild(title);
+            bookInfoContainer.append(bookTitle, bookInfo);
+            bookInfo.appendChild(read);
+            bookContainerFooter.append(readBtn, deleteBtn);
+            bookContainer.append(bookInfoContainer, bookContainerFooter);
+            mainBody.appendChild(bookContainer);
+        });
+    };
 
     function deleteBook(book) {
         const index = myLibrary.findIndex(b => b.id === book.id)
