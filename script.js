@@ -81,67 +81,50 @@ document.addEventListener("DOMContentLoaded", function() {
         updateWebPage();
     }
 
-    function updateWebPage() {
-        mainBody.innerHTML = "";
+function createElement(tag, { className, textContent, dataset } = {}) {
+    const el = document.createElement(tag);
+    if (className) el.className = className;
+    if (textContent) el.textContent = textContent;
+    if (dataset) Object.assign(el.dataset, dataset);
+    return el;
+};
 
-        myLibrary.forEach(book => {
-            const bookContainer = document.createElement("div");
-            bookContainer.className = "book-container";
-            bookContainer.dataset.id = book.id;
-            mainBody.appendChild(bookContainer);
+function updateWebPage() {
+    mainBody.innerHTML = "";
+    myLibrary.forEach(book => {
+        const bookContainer = createElement("div", { className: "book-container", dataset: { id: book.id } });
+        const bookInfoContainer = createElement("div", { className: "book-info-container" });
+        const bookTitle = createElement("div", { className: "book-title" });
+        const title = createElement("h1", { textContent: book.title });
+        const bookInfo = createElement("div", { className: "book-info" });
+        const read = createElement("div", { textContent: book.read ? READ : NOT_READ });
+        const bookContainerFooter = createElement("div", { className: "book-container-footer" });
+        const readBtn = createElement("button", { textContent: book.read ? MARK_UNREAD : MARK_READ });
+        const deleteBtn = createElement("button", { className: "delete-btn", textContent: "Delete" });
 
-            const bookInfoContainer = document.createElement("div");
-            bookInfoContainer.className = "book-info-container";
-            bookContainer.appendChild(bookInfoContainer);
+        if (book.author) bookInfo.appendChild(createElement("div", { textContent: book.author }));
 
-            const bookTitle = document.createElement("div");
-            bookTitle.className = "book-title";
-            bookInfoContainer.appendChild(bookTitle);
+        if (!isNaN(book.pages)) {
+            const pages = `${book.pages.toLocaleString()} ${book.pages === 1 ? "Page" : "Pages"}`;
+            bookInfo.appendChild(createElement("div", { textContent: pages }));
+        }
 
-            const title = document.createElement("h1");
-            title.textContent = book.title;
-            bookTitle.appendChild(title);
+        readBtn.addEventListener("click", () => 
+            book.toggleReadStatus(readBtn, read)
+        );
 
-            const bookInfo = document.createElement("div");
-            bookInfo.className = "book-info";
-            bookInfoContainer.appendChild(bookInfo);
+        deleteBtn.addEventListener("click", () => 
+            deleteBook(book)
+        );
 
-            if (book.author) {
-                const author = document.createElement("div");
-                author.textContent = book.author;
-                bookInfo.appendChild(author);
-            }
-
-            if (!isNaN(book.pages)) {
-                const pages = document.createElement("div");
-                pages.textContent = `${book.pages.toLocaleString()} ${book.pages === 1 ? "Page" : "Pages"}`;
-                bookInfo.appendChild(pages);
-            }
-            
-            const read = document.createElement("div");
-            book.read ? read.textContent = READ : read.textContent = NOT_READ;
-            bookInfo.appendChild(read);
-
-            const bookContainerFooter = document.createElement("div");
-            bookContainerFooter.className = "book-container-footer";
-            bookContainer.appendChild(bookContainerFooter);
-
-            const readBtn = document.createElement("button");
-            book.read ? readBtn.textContent = MARK_UNREAD : readBtn.textContent = MARK_READ;
-            readBtn.addEventListener("click", () => {
-                book.toggleReadStatus(readBtn, read);
-            });
-            bookContainerFooter.appendChild(readBtn);
-
-            const deleteBtn = document.createElement("button");
-            deleteBtn.className = "delete-btn";
-            deleteBtn.textContent = "Delete";
-            deleteBtn.addEventListener("click", () => {
-                deleteBook(book);
-            });
-            bookContainerFooter.appendChild(deleteBtn);
-        })
-    };
+        bookTitle.appendChild(title);
+        bookInfoContainer.append(bookTitle, bookInfo);
+        bookInfo.appendChild(read);
+        bookContainerFooter.append(readBtn, deleteBtn);
+        bookContainer.append(bookInfoContainer, bookContainerFooter);
+        mainBody.appendChild(bookContainer);
+    });
+};
 
     function deleteBook(book) {
         const index = myLibrary.findIndex(b => b.id === book.id)
