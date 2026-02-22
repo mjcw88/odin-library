@@ -144,8 +144,7 @@ document.addEventListener("DOMContentLoaded", function() {
     };
 
     function deleteBook(book) {
-        const id = book.id;
-        const index = myLibrary.findIndex(book => book.id === id)
+        const index = myLibrary.findIndex(b => b.id === book.id)
         myLibrary.splice(index, 1);
 
         updateWebPage();
