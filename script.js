@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const bookTitle = createElement("div", { className: "book-title" });
             const title = createElement("h1", { textContent: book.title });
             const bookInfo = createElement("div", { className: "book-info" });
-            const read = createElement("div", { textContent: book.read ? READ : NOT_READ });
+            const read = createElement("div", { textContent: book.read ? READ : NOT_READ });        
             const bookContainerFooter = createElement("div", { className: "book-container-footer" });
             const readBtn = createElement("button", { textContent: book.read ? MARK_UNREAD : MARK_READ });
             const deleteBtn = createElement("button", { className: "delete-btn", textContent: "Delete" });
@@ -118,12 +118,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 deleteBook(book)
             );
 
-            bookTitle.appendChild(title);
+            mainBody.appendChild(bookContainer);
+            bookContainer.append(bookInfoContainer, bookContainerFooter);
             bookInfoContainer.append(bookTitle, bookInfo);
+            bookTitle.appendChild(title);
             bookInfo.appendChild(read);
             bookContainerFooter.append(readBtn, deleteBtn);
-            bookContainer.append(bookInfoContainer, bookContainerFooter);
-            mainBody.appendChild(bookContainer);
         });
     };
 
