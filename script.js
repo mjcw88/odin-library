@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Constants
+    // Arrays
     const myLibrary = [];
 
+    // Constants
     const READ = "Read";
     const NOT_READ = "Not Read";
     const MARK_READ = "Mark as Read";
@@ -13,35 +14,28 @@ document.addEventListener("DOMContentLoaded", function() {
     const form = addBook.querySelector("form"); 
     const mainBody = document.getElementById("main-body");
 
-    // Book constructor
-    function Book(id, title, author, pages, read) {
-        if (!new.target) {
-            throw Error("You must use the 'new' operator to call the constructor");
+    // Book class
+    class Book {
+        constructor(id, title, author, pages, read) {
+            this.id = id;
+            this.title = title;
+            this.author = author;
+            this.pages = pages;
+            this.read = read;
         }
-        this.id = id;
-        this.title = title;
-        this.author = author;
-        this.pages = pages;
-        this.read = read;
+
+        toggleReadStatus(btn, read) {
+            if (this.read) {
+                this.read = false;
+                btn.textContent = MARK_READ;
+                read.textContent = NOT_READ;
+            } else {
+                this.read = true;
+                btn.textContent = MARK_UNREAD;
+                read.textContent = READ;
+            }
+        }   
     }
-
-    Book.prototype.toggleReadStatus = function(btn, read) {
-        if (this.read) {
-            this.read = false;
-            btn.textContent = MARK_READ;
-            read.textContent = NOT_READ;
-        } else {
-            this.read = true;
-            btn.textContent = MARK_UNREAD;
-            read.textContent = READ;
-        }
-    };
-
-    // Create placeholder books
-    addBookToLibrary("The Shining", "Stephen King", 447, true);
-    addBookToLibrary("The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 208, false);
-    addBookToLibrary("Jane Eyre", "Charlotte Brontë", 448, true);
-    addBookToLibrary("Shōgun", "James Clavell", 1152, false);
 
     // Event Listeners
     newBookBtn.addEventListener("click", () => {
@@ -133,4 +127,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
         updateWebPage();
     }
+
+    // Create placeholder books
+    addBookToLibrary("The Shining", "Stephen King", 447, true);
+    addBookToLibrary("The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 208, false);
+    addBookToLibrary("Jane Eyre", "Charlotte Brontë", 448, true);
+    addBookToLibrary("Shōgun", "James Clavell", 1152, false);
 });
