@@ -16,8 +16,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Book class
     class Book {
-        constructor(id, title, author, pages, read) {
-            this.id = id;
+        constructor(title, author, pages, read) {
+            this.id = self.crypto.randomUUID();
             this.title = title;
             this.author = author;
             this.pages = pages;
@@ -55,12 +55,15 @@ document.addEventListener("DOMContentLoaded", function() {
             form.reportValidity();
             return;
         }
-        
-        const title = document.getElementById("title").value;
-        const author = document.getElementById("author").value;
-        const pages = parseInt(document.getElementById("pages").value);
-        const read = document.getElementById("read").checked;
 
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        const title = data.title;
+        const author = data.author;
+        const pages = parseInt(data.pages);
+        const read = data.read;
+    
         addBookToLibrary(title, author, pages, read);
     
         form.reset();
@@ -69,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Functions
     function addBookToLibrary(title, author, pages, read) {
-        const book = new Book(self.crypto.randomUUID(), title, author, pages, read);
+        const book = new Book(title, author, pages, read);
         myLibrary.push(book);
 
         updateWebPage();
