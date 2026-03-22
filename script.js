@@ -37,39 +37,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }   
     }
 
-    // Event Listeners
-    newBookBtn.addEventListener("click", () => {
-        addBook.showModal();
-    });
-
-    addBook.addEventListener("close", (e) => {
-        e.preventDefault();
-        form.reset(); 
-        addBook.close();
-    });
-
-    addBookBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        
-        if (!form.checkValidity()) {
-            form.reportValidity();
-            return;
-        }
-
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
-
-        const title = data.title;
-        const author = data.author;
-        const pages = parseInt(data.pages);
-        const read = data.read;
-    
-        addBookToLibrary(title, author, pages, read);
-    
-        form.reset();
-        addBook.close();
-    });
-
     // Functions
     function addBookToLibrary(title, author, pages, read) {
         const book = new Book(title, author, pages, read);
@@ -130,6 +97,39 @@ document.addEventListener("DOMContentLoaded", function() {
 
         updateWebPage();
     }
+
+    // Event Listeners
+    newBookBtn.addEventListener("click", () => {
+        addBook.showModal();
+    });
+
+    addBook.addEventListener("close", (e) => {
+        e.preventDefault();
+        form.reset(); 
+        addBook.close();
+    });
+
+    addBookBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        const title = data.title;
+        const author = data.author;
+        const pages = parseInt(data.pages);
+        const read = data.read;
+    
+        addBookToLibrary(title, author, pages, read);
+    
+        form.reset();
+        addBook.close();
+    });
 
     // Create placeholder books
     addBookToLibrary("The Shining", "Stephen King", 447, true);
