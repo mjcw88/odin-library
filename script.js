@@ -100,19 +100,6 @@ document.addEventListener("DOMContentLoaded", function() {
         updateWebPage();
     }
 
-    // Event Listeners
-    newBookBtn.addEventListener("click", () => {
-        addBook.showModal();
-    });
-
-    cancelBtn.addEventListener("click", () => {
-        title.className = ""
-        error.textContent = "";
-        error.removeAttribute("class");
-        form.reset(); 
-        addBook.close();
-    });
-
     const isValidTitle = () => {
         return title.value.length >= 1 && title.value.length <= 128;
     }
@@ -144,6 +131,19 @@ document.addEventListener("DOMContentLoaded", function() {
     const validity = isValidTitle();
     setTitleClass(validity);
     title.addEventListener("input", handleInput);
+
+    // Event Listeners
+    newBookBtn.addEventListener("click", () => {
+        addBook.showModal();
+    });
+
+    cancelBtn.addEventListener("click", () => {
+        title.className = ""
+        error.textContent = "";
+        error.removeAttribute("class");
+        form.reset(); 
+        addBook.close();
+    });
 
     form.addEventListener("submit", (e) => {
         e.preventDefault();
