@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project: Library | The Odin Project</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
     <div class="header-container">
@@ -15,10 +15,11 @@
         </div>
         <div class="add-book-container">
             <dialog id="add-book-form">
-                <form>
-                    <div class="form-row">
+                <form novalidate>
+                    <div class="form-row title-row">
                         <label for="title">Title</label>
                         <input type="text" id="title" name="title" maxlength="128" placeholder="Frankenstein" required>
+                        <span id="error" class="error" aria-live="polite"></span>
                     </div>
                     <div class="form-row">
                         <label for="author">Author</label>
@@ -35,8 +36,8 @@
                         </div>
                     </div>
                     <div class="form-btns">
-                        <button value="cancel" formmethod="dialog" formnovalidate>Cancel</button>
-                        <button id="add-book-btn" value="default">Add Book</button>
+                        <button type="button" id="cancel-btn" value="cancel" formmethod="dialog" formnovalidate>Cancel</button>
+                        <button type="submit" id="add-book-btn" value="default">Add Book</button>
                     </div>
                 </form>
             </dialog>

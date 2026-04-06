@@ -13,6 +13,7 @@
     --grey: #F2F2F2;
     --white: #FFFFFF;
     --greyborder: #E5E7EB;
+    --red: #990000;
     --borderThickness: 0.0625rem;
     --borderRadius: 4rem;
     --buttonBg: #1E1915;
@@ -170,7 +171,7 @@ input[type="checkbox"]:hover {
 
 .form-row input[type='text']:invalid,
 .form-row input[type=number]:invalid {
-    border: var(--borderThickness) solid #DD0000;
+    border: var(--borderThickness) solid var(--red);
 }
 
 input[type="checkbox"] {
@@ -261,6 +262,27 @@ button:active {
     flex-direction: column;
     flex-wrap: wrap;
     gap: 0.5rem;
+}
+
+.title-row {
+    display: flex;
+    flex-direction: column;
+}
+
+#error {
+    position: absolute;
+    inset-inline-start: 8rem;
+    inset-block-start: 4.25rem;
+    width: fit-content;
+    font-size: 1.125rem;
+    color: var(--white);
+    background-color: var(--red);
+    border-radius: 0.25rem;
+    box-sizing: border-box;
+}
+
+.active {
+    padding: 0.3rem;
 }
 
 @media only screen and (min-width: 768px) {

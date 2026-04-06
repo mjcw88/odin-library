@@ -10,8 +10,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const newBookBtn = document.getElementById("new-book-btn");
     const addBook = document.getElementById("add-book-form");
-    const addBookBtn = addBook.querySelector("#add-book-btn");
     const form = addBook.querySelector("form"); 
+    const title = document.getElementById("title");
+    const error = document.getElementById("error");
+    const cancelBtn = document.getElementById("cancel-btn");
     const mainBody = document.getElementById("main-body");
 
     // Book class
@@ -103,19 +105,54 @@ document.addEventListener("DOMContentLoaded", function() {
         addBook.showModal();
     });
 
-    addBook.addEventListener("close", (e) => {
-        e.preventDefault();
+    cancelBtn.addEventListener("click", () => {
+        title.className = ""
+        error.textContent = "";
+        error.removeAttribute("class");
         form.reset(); 
         addBook.close();
     });
 
-    addBookBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        
-        if (!form.checkValidity()) {
-            form.reportValidity();
-            return;
+    const isValidTitle = () => {
+        return title.value.length >= 1 && title.value.length <= 128;
+    }
+
+    const setTitleClass = (isValid) => {
+        title.className = isValid ? "valid" : "invalid";
+    };
+
+    const updateError = (isValid) => {
+        if (isValid) {
+            error.textContent = "";
+            error.removeAttribute("class");
+        } else {
+            if (title.value.length < 1) {
+                error.textContent = "Please enter a title!";
+            } else if (title.value.length > 128) {
+                error.textContent = "Title cannot be more than 128 characters!";
+            }
+            error.setAttribute("class", "active");
         }
+    };
+
+    const handleInput = () => {
+        const validity = isValidTitle();
+        setTitleClass(validity);
+        updateError(validity);
+    };
+
+    const validity = isValidTitle();
+    setTitleClass(validity);
+    title.addEventListener("input", handleInput);
+
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        let validity = isValidTitle();
+        setTitleClass(validity);
+        updateError(validity);
+        
+        if (!validity) return;
 
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
